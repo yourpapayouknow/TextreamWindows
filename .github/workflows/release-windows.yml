@@ -45,7 +45,7 @@ jobs:
         run: cargo test
 
       - name: Build and publish Windows release
-        uses: tauri-apps/tauri-action@v1
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -63,4 +63,3 @@ jobs:
           releaseAssetNamePattern: Textream-Windows-[version]-[platform]-[arch][setup].[ext]
           uploadWorkflowArtifacts: true
           retryAttempts: 1
-
