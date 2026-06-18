@@ -1,0 +1,66 @@
+name: Build Windows Test Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "textream-windows-test-*"
+
+jobs:
+  build-windows:
+    name: Build Windows installer
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: npm
+          cache-dependency-path: windows-app/package-lock.json
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust artifacts
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./windows-app/src-tauri -> target"
+
+      - name: Install frontend dependencies
+        working-directory: windows-app
+        run: npm ci
+
+      - name: Run frontend build
+        working-directory: windows-app
+        run: npm run build
+
+      - name: Run Rust tests
+        working-directory: windows-app/src-tauri
+        run: cargo test
+
+      - name: Build and publish Windows release
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: windows-app
+          tauriScript: npm run tauri
+          tagName: textream-windows-test-v__VERSION__-${{ github.run_number }}
+          releaseName: Textream Windows Test v__VERSION__ (#${{ github.run_number }})
+          releaseBody: |
+            Automated Windows test build for Textream.
+
+            Download the `.exe` installer from the assets below and run the checklist in `WINDOWS_TEST_CHECKLIST.md`.
+            This build is unsigned, so Windows SmartScreen may show a warning.
+          releaseDraft: false
+          prerelease: true
+          releaseAssetNamePattern: Textream-Windows-[version]-[platform]-[arch][setup].[ext]
+          uploadWorkflowArtifacts: true
+          retryAttempts: 1
+

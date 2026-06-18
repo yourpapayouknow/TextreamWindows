@@ -1,0 +1,21 @@
+# Local indexes and generated state
+.codegraph/
+.DS_Store
+*.log
+
+# Keep the macOS reference repository local. It is an independent nested Git repo.
+textreammac/
+
+# Node / Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Tauri / Cargo generated output
+target/
+windows-app/src-tauri/target/
+windows-app/src-tauri/gen/
+windows-app/dist/
+windows-app/node_modules/
+
