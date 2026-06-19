@@ -60,6 +60,5 @@ jobs:
             This build is unsigned, so Windows SmartScreen may show a warning.
           releaseDraft: false
           prerelease: true
-          releaseAssetNamePattern: Textream-Windows-[version]-[platform]-[arch][setup].[ext]
-          uploadWorkflowArtifacts: true
+          assetNamePattern: Textream-Windows-[version]-[platform]-[arch][setup].[ext]
           retryAttempts: 1
