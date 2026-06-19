@@ -4075,7 +4075,7 @@ dependencies = [
 
 [[package]]
 name = "textream-windows"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "quick-xml 0.38.4",
  "rand 0.8.6",

@@ -39,6 +39,6 @@ This table maps the macOS SwiftUI/AppKit implementation to a Windows-first Tauri
 
 ## Current Implementation Status
 
-- Done: `windows-app` scaffold, React workspace UI, shared TypeScript models, Rust settings/document/reading/text/PPTX/update modules, overlay window commands, Remote and Director HTTP/WebSocket servers, and CodeGraph re-index.
+- Done: `windows-app` scaffold, React main window matching the original page-sidebar/editor layout, six-category settings modal, Windows native menus, shared TypeScript models, Rust settings/document/reading/text/PPTX/update modules, overlay window commands, Remote and Director HTTP/WebSocket servers, and CodeGraph re-index.
 - Verified on this Mac: `npm run build`, `cargo test`, and `npm run tauri build`.
 - Pending Windows validation: Windows native speech backend internals, microphone device enumeration beyond the default placeholder, capture protection behavior, Windows installer output, URL scheme registration, and multi-monitor fullscreen behavior.
